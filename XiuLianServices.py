@@ -1,12 +1,14 @@
 from AdbTools import AdbTools
 from BaseServices import BaseServices
-from Constant import Constant;
-import time;
+from Constant import Constant
+from ImgCompare import ImgCompare
+import time
 class XiuLianServices(BaseServices):
     """刷书页服务"""
-    page = Constant.XiuLianPage;
+    page = Constant.XiuLianPage
+
     def __init__(self):
-        BaseServices.__init__(self);
+        BaseServices.__init__(self)
         """构造函数，定义初始配置"""
         pass
     def bettle(self):
@@ -18,26 +20,33 @@ class XiuLianServices(BaseServices):
             time.sleep(2)
         time.sleep(3)
         pass
-
     def doPoint(self):
-        x = self.page.DomDic["书页特级"][0];
-        y = self.page.DomDic["书页特级"][1];
+        print('开始行动！')
+        self.tool.screenshot('xiulian.png')
+        print('截图当前界面!')
+        diff = self.imgTool.compare_image('xiulian.png',self.page.ImgSrc)
+        print('相似度为%s',diff)
+        
+
+        print('比较相似性')
+        x = self.page.DomDic["书页特级"][0]
+        y = self.page.DomDic["书页特级"][1]
         self.tool.tap(x,y)
         self.tool.tap(x,y)
-        time.sleep(1);
+        time.sleep(1)
         self.tool.tap(728,845)
         self.tool.tap(728,845)
-        time.sleep(1);
+        time.sleep(1)
         self.tool.tap(560,548)
         self.tool.tap(560,548)
 
-        time.sleep(1);
+        time.sleep(1)
         self.tool.tap(1643,954)
         self.tool.tap(1643,954)
-        time.sleep(3);
+        time.sleep(3)
         self.bettle()
         pass
 
 server=XiuLianServices()
-server.doPoint();
+server.doPoint()
 

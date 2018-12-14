@@ -15,7 +15,7 @@ import re
 import time
 import time
 import datetime
-
+import sys
 class AdbTools(object):
 
     def __init__(self, device_id=''):
@@ -359,15 +359,16 @@ class AdbTools(object):
         format_time =datetime.datetime.now().strftime('%Y%m%d%H%M%S')
         #format_time = utils.timetools.timestamp('%Y%m%d%H%M%S')
         self.shell('screencap -p /sdcard/Download/tempShot/%s.png' % (format_time,))
-        time.sleep(1)
+        time.sleep(2)
         if target_path == '':
             self.pull('/sdcard/Download/tempShot/%s.png' % (format_time,), os.path.expanduser('~'))
         else:
             self.pull('/sdcard/Download/tempShot/%s.png' % (format_time,), target_path)
+            time.sleep(2)
         try:
            self.remove('/sdcard/Download/tempShot/%s.png' % (format_time,))
         except:
-           print("Unexpected error:", sys.exc_info()[0]);
+           print("Unexpected error:", sys.exc_info()[0])
            raise
 
     def get_cache_logcat(self):
